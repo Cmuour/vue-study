@@ -9,6 +9,10 @@
 	<p v-once>{{msg}}</p>
 	<p v-html="a"></p>
 	<input type="text" v-model="msg">
+	<!-- @click="fn1" fn1不写() 则默认执行的时候会传一个事件对象 -->
+	<div @click="fn1">事件1</div>
+	<!-- @click="fn2()" 如果用到事件对象则需要自己手动传 @event -->
+	<div @click="fn2($event)">事件2</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -18,6 +22,14 @@
 		data: {
 			msg:'hello world',
 			a:'<a>www.bai<p>du.</p>com</a>'
+		},
+		methods:{
+			fn1(e){
+				console.log(e)
+			},
+			fn2(e){
+				console.log(e);
+			}
 		}
 	})
 </script>
