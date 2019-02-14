@@ -58,3 +58,155 @@
 			}
 		})
 	</script>
+
+
+6.vue中过滤器的使用
+
+	<div id='app'>
+		<p>{{date | dateFormat}}</p>
+	</div>
+
+	<script>
+		Vue.filter('dateFormat',function(datestr,pattern=''){
+			let dt = new Date(datestr);
+			let y = dt.getFullYear();
+			let m = (dt.getMonth() + 1).toString().padStart(2,'0');
+			let d = dt.getDate().toString().padStart(2,'0');
+
+			if(pattern.toLowerCase() == 'yyyy-mm-dd'){
+				return `${y}-${m}-${d}`;
+			}else{
+				let hh = dt.getHours().toString().padStart(2,'0');
+				let mm = dt.getMinutes().toString().padStart(2,'0');
+				let ss = dt.getSeconds().toString().padStart(2,'0');
+			}
+		})
+
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				date: new Date()
+			}
+		})
+	</script>
+
+
+7.解决渲染数据时出现闪烁的问题
+
+	<style type="text/css">
+		[v-cloak]{
+			display: none;
+		}
+	</style>
+
+	<div id='app' v-cloak>
+		<p>{{msg}}</p>
+	</div>
+	
+	<script>
+		let vm = new Vue({
+			el:"#app",
+			data: {
+				msg:"hello world"
+			}
+		})
+	</script>
+
+8.checkbox 里如果存在v-model 则会在checked触发后 再去执行v-model
+
+	<!-- 
+		input里的checked会触发，但是触发后会执行v-model,所以我们看到的会是
+		没有选中的样子,如果我们一直刷新页面的话，就会看到一开始input是选中
+		的，是在后来才给取消掉的
+	-->
+	<div id="app">
+		<input type="checkbox" checked v-model="isCheck"> 美食
+	</div>
+
+	<script>
+		let vm = new Vue({
+			el: "#app",
+			data: {
+				isCheck:false
+			}
+		})
+	</script>
+
+9.简单的实现checkbox全选跟全部选功能
+
+	<div id="app">
+		<input type="checkbox" value="美食" v-model="arr" @change="checkOne">美食 &nbsp
+		<input type="checkbox" value="运动" v-model="arr" @change="checkOne">运动 &nbsp
+		<input type="checkbox" value="衣服" v-model="arr" @change="checkOne">衣服 &nbsp&nbsp
+		<input type="checkbox" value="all" @change="checkaAll" v-model="isCheck">全部选中
+		<br>
+		{{arr}}
+	</div>
+
+	<script>
+		let vm = new Vue({
+			el:'#app',
+			data: {
+				isCheck:false,
+				arr:[]
+			},
+			methods:{
+				checkOne(){
+					this.isCheck = this.arr.length === 3;
+				},
+				checkaAll(e){
+					this.arr = e.target.checked?["美食","运动","衣服"]:[];
+				}
+			}
+		})
+	</script>
+
+
+10.radio
+	
+	<div id="app">
+		<input type="radio" value="男" v-model="sex">男
+		<input type="radio" value="女" v-model="sex">女
+		{{sex}}
+	</div>
+
+	<script>
+		let vm = new Vue({
+			el:"#app",
+			data: {
+				sex:""
+			}
+		})
+	</script>
+
+11.select
+
+	<div id="app">
+		<select v-model="sel">
+			<!-- 如果option有value值 则sel获取到的会是value里的值,如果没有就存放着option里的内容 -->
+			<option value="1">天空</option>
+			<option>大地</option>
+			<option>星空</option>
+		</select>
+		{{sel}}
+		<br>
+		<br>
+		<br>
+		<!-- 在 select 加上 multiple 可以实现多选, 加上 multiple 后 sel2 即使是一个字符串，v-model会自动转换成一个数组 -->
+		<select v-model="sel2" multiple>
+			<option value="1">天空</option>
+			<option>大地</option>
+			<option>星空</option>
+		</select>
+		{{sel2}}
+	</div>
+
+	<script>
+		let vm = new Vue({
+			el:"#app",
+			data: {
+				sel:"",
+				sel2:""
+			}
+		})
+	</script>

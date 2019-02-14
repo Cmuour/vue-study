@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<div id="app">
+	<select v-model="sel">
+		<option value="1">天空</option>
+		<option>大地</option>
+		<option>星空</option>
+	</select>
+	{{sel}}
+	<br>
+	<br>
+	<br>
+	<select v-model="sel2" multiple>
+		<option value="1">天空</option>
+		<option>大地</option>
+		<option>星空</option>
+	</select>
+	{{sel2}}
+</div>
+<!--  -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	let vm = new Vue({
+		el:"#app",
+		data: {
+			sel:"",
+			sel2:[]
+		}
+	})
+</script>
+</body>

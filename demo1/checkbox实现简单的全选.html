@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<div id="app">
+	<input type="checkbox" value="美食" v-model="arr" @change="checkOne">美食 &nbsp
+	<input type="checkbox" value="运动" v-model="arr" @change="checkOne">运动 &nbsp
+	<input type="checkbox" value="衣服" v-model="arr" @change="checkOne">衣服 &nbsp&nbsp
+	<input type="checkbox" value="all" @change="checkaAll" v-model="isCheck">全部选中
+	<br>
+	<br>
+	{{arr}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	let vm = new Vue({
+		el:'#app',
+		data: {
+			isCheck:false,
+			arr:[]
+		},
+		methods:{
+			checkOne(){
+				this.isCheck = this.arr.length === 3;
+			},
+			checkaAll(e){
+				this.arr = e.target.checked?["美食","运动","衣服"]:[];
+			}
+		}
+	})
+</script>
+</body>
+</html>
