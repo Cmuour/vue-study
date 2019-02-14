@@ -4,16 +4,17 @@
 	<title></title>
 </head>
 <body>
+
 <div id="app">
-	<input type="checkbox" checked value="美食" v-model="isCheck"> 美食
+	<input type="text" v-for="item in arr" :value="item">
 </div>
-<!--  -->
+
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
 	let vm = new Vue({
-		el: "#app",
+		el:"#app",
 		data: {
-			isCheck:true
+			arr:["美食","运动","衣服"]
 		}
 	})
 </script>

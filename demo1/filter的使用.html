@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		[v-cloak]{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+
+<div id="app" v-cloak>
+	<p>{{curDate | dateFormat}}</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+
+let vm = new Vue({
+	el:　"#app",
+	data:{
+		curDate:new Date()
+	},
+	filters:{
+		dateFormat(datestr,pattern=''){
+			let dt = new Date(datestr);
+			let y = dt.getFullYear();
+			let m = (dt.getMonth() + 1).toString().padStart(2,'0');
+			let d = dt.getDate().toString().padStart(2,'0');
+
+			if(pattern.toLowerCase() == 'yyyy-mm-dd'){
+				return `${y}-${m}-${d}`;
+			}else{
+				let hh = dt.getHours().toString().padStart(2,'0');
+				let mm = dt.getMinutes().toString().padStart(2,'0');
+				let ss = dt.getSeconds().toString().padStart(2,'0');
+				return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+			}
+		}
+	}
+})
+
+</script>
+</body>
+</html>

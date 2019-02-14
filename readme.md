@@ -67,6 +67,7 @@
 	</div>
 
 	<script>
+		// 这中方法实现是全局过滤器
 		Vue.filter('dateFormat',function(datestr,pattern=''){
 			let dt = new Date(datestr);
 			let y = dt.getFullYear();
@@ -88,6 +89,34 @@
 				date: new Date()
 			}
 		})
+	</script>
+
+
+	或者这样实现 私有过滤器
+	<script type="text/javascript">
+		let vm = new Vue({
+		el:　"#app",
+		data:{
+			curDate:new Date()
+		},
+		filters:{
+			dateFormat(datestr,pattern=''){
+				let dt = new Date(datestr);
+				let y = dt.getFullYear();
+				let m = (dt.getMonth() + 1).toString().padStart(2,'0');
+				let d = dt.getDate().toString().padStart(2,'0');
+
+				if(pattern.toLowerCase() == 'yyyy-mm-dd'){
+					return `${y}-${m}-${d}`;
+				}else{
+					let hh = dt.getHours().toString().padStart(2,'0');
+					let mm = dt.getMinutes().toString().padStart(2,'0');
+					let ss = dt.getSeconds().toString().padStart(2,'0');
+					return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+				}
+			}
+		}
+	})
 	</script>
 
 
@@ -207,6 +236,22 @@
 			data: {
 				sel:"",
 				sel2:""
+			}
+		})
+	</script>
+
+12.v-bind的使用
+
+	<div id="app">
+		<!--在属性名的前面加上 v-bind 或者 ： 这样就可以实现动态绑定-->
+		<input type="text" v-for="item in arr" :value="item">
+	</div>
+
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data: {
+				arr:["美食","运动","衣服"]
 			}
 		})
 	</script>
