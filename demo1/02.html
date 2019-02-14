@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id='app'>
+		<input type="text"  @keydown.f2="fn1">
+	</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+
+	// 自定义按键修饰符
+	Vue.config.keyCodes.f2 = 113;
+
+	let vm = new Vue({
+		el:"#app",
+		data: {
+			msg:"hello world"
+		},
+		methods:{
+			fn1(e){
+				console.log(e);
+			}
+		}
+	})
+</script>
+</body>
+</html>

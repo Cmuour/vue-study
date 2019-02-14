@@ -13,6 +13,31 @@
 			height: 50px;
 			background: blue;
 		}
+		.box3{
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+		.box4{
+			width: 50px;
+			height: 50px;
+			background: blue;
+		}
+		.box5{
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+		.box6{
+			width: 50px;
+			height: 50px;
+			background: blue;
+		}
+		.box7{
+			width: 50px;
+			height: 50px;
+			background: blue;
+		}
 	</style>
 </head>
 <body>
@@ -30,6 +55,21 @@
 	<div class="box1" @click="fn3">
 		<div class="box2" @click.stop="fn4"></div>
 	</div>
+	<br>
+
+	<!-- .capture 捕获阶段发生 -->
+	<div class="box3" @click.capture="fn5" >
+		<div class="box4" @click="fn6"></div>
+	</div>
+	<br>
+
+	<a href="www.baidu.com" @click.prevent="fn7">百度</a>
+	<br>
+	<div class="box5" @click.self="fn8" >
+		<div class="box6" @click="fn9"></div>
+	</div>
+
+	<div class="box7" @click.once="fn0"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -52,7 +92,26 @@
 			},
 			fn4(e){
 				console.log(e);
+			},
+			fn5(e){
+				console.log(e,1);
+			},
+			fn6(e){
+				console.log(e,2);
+			},
+			fn7(e){
+				console.log(e,1);
+			},
+			fn8(e){
+				console.log(e);
+			},
+			fn9(e){
+				console.log(e);
+			},
+			fn0(e){
+				console.log(e);
 			}
+
 		}
 	})
 </script>
