@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.css">
+</head>
+<body>
+
+<div id="app">
+	<div class="container">
+		<div class="row">
+			<table class="table table-bordered">
+				<caption style="caption-side:top" class="h1 text-center text-danger">购物车</caption>
+				<thead>
+					<tr>
+						<th>全选 <input type="checkbox" v-model="isCheck" @change="isAll"></th>
+						<th>商品</th>
+						<th>单价</th>
+						<th>数量</th>
+						<th>小计</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,key) in productArr" class="text-center" :key="item.productName">
+						<td><input type="checkbox" v-model="item.isSelected" @change="check"></td>
+						<td>{{item.productName}} <img :src="item.productCover" width="30px" height="50px" alt=""></td>
+						<td>{{item.productPrice}}</td>
+						<td><input type="number" max="20" min="0" v-model="item.productCount"></td>
+						<td>￥{{item.productPrice * item.productCount | toFixed}}</td>
+						<td><button class="btn btn-danger" @click="remove(key)">删除</button></td>
+					</tr>
+					<tr>
+						<td colspan="6">总价格 ￥{{sum()}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript" src="../axios.min.js"></script>
+<script type="text/javascript">
+
+	let vm = new Vue({
+		el: "#app",
+		data:{
+			productArr:[],
+			isCheck:false
+		},
+		methods:{
+			async getData(){
+				this.productArr = (await axios.get('data/carts.json')).data
+				this.isAllCheck()
+			},
+			isAll(){
+				this.productArr.forEach(item=>{
+					item.isSelected = this.isCheck
+				})
+			},
+			check(){
+				this.isCheck = this.productArr.every(item=>item.isSelected)
+			},
+			remove(index){
+				this.productArr.splice(index,1)
+			},
+			isAllCheck(){
+				this.isCheck = this.productArr.every(item=>item.isSelected)
+			},
+			sum(){
+				let total = 0;
+				this.productArr.forEach(item=>{
+					total += item.isSelected? item.productCount * item.productPrice : 0;
+				})
+				return total;
+			}
+		},
+		created(){
+			this.getData();
+		},
+		filters:{
+			toFixed(target){
+				return Number(target).toFixed(2);
+			}
+		}
+	})
+</script>
+</body>
+</html>

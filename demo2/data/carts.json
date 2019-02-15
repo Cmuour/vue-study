@@ -1,0 +1,26 @@
+[
+	{
+		"isSelected": false,
+		"productCover":"//img14.360buyimg.com/n1/jfs/t3049/211/1135504925/129375/cc072102/57c6862aN329b23fd.jpg",
+		"productName":"vue.js权威指南",
+		"productInfo":"介绍：大热框架首著惊现，vue之父作序力推",
+		"productPrice":78.00,
+		"productCount":10
+	},
+	{
+		"isSelected": true,
+		"productCover":"//img11.360buyimg.com/n1/jfs/t2047/63/2033152973/398005/5ea9044e/56ea5e6aN38c0f2b8.jpg",
+		"productName":"javascript权威指南",
+		"productInfo":"本书主要讲述的内容涵盖JavaScript语言本身，以及Web浏览器所实现的JavaScript API。本书第6版涵盖了HTML5和ECMAScript 5，很多章节完全重写，新增的章节包括jQuery、服务器端JavaScript、图形编程以及 JavaScript式的面向对象。本书不仅适合初学者系统学习，也适合有经验的 JavaScript 开发者随手翻阅。",
+		"productPrice":111.20,
+		"productCount":6
+	},
+	{
+		"isSelected": true,
+		"productCover":"//img12.360buyimg.com/n1/jfs/t17530/8/1551440242/49531/c1ab3d81/5acede3eN809fa06c.jpg",
+		"productName":"nodejs权威指南",
+		"productInfo":"《[0No0]de.js指南》旨在成为[0No0]de.js[0领0]域全面、系统和具实战性的一本书，供初[0学0]者系统[0学0]习和开发者工作时参考。本书作者是资深Web开发专家，不仅全面、细致地讲解了[0No0]de.js的所有功能、特性、使用方[0法0]和开发技巧，而且还介绍了与之相关的各种扩展功能和工具的使用。此外，它实战性强，不仅每个[0知0]识点都配有精心设计的小案例（具体的实现步骤、完整的实现代码、终的实现效果，图文并茂），而且还有两个综合性的案例，能让读者迅速获得实战经验。本书所有实例代码都经调试运行成功，读者可以对这些代码进行修改，以便观察各种不同的效果，加深对实例代码的理解。",
+		"productPrice":108.00,
+		"productCount":3
+	}
+]

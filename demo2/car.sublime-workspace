@@ -1,0 +1,348 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"transform",
+				"transform-origin\tproperty"
+			],
+			[
+				"padding",
+				"padding-top\tproperty"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"transfo",
+				"transform-origin\tproperty"
+			],
+			[
+				"text",
+				"text-decoration\tproperty"
+			],
+			[
+				"page",
+				"pageSize"
+			],
+			[
+				"case",
+				"caseResult"
+			],
+			[
+				"ca",
+				"cateRes"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pkin",
+				"Preferences: Key Bindings"
+			],
+			[
+				"",
+				"Plugin Development: Profile Events"
+			],
+			[
+				"Install package con",
+				"Install Package Control"
+			],
+			[
+				"Install package",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/E/personal_homepage/html+css+js/Symbol.js",
+		"/E/MyBlogs/views/admin/nav/add.html",
+		"/E/MyBlogs/views/admin/link/add.html",
+		"/E/MyBlogs/views/admin/focus/add.html",
+		"/E/MyBlogs/views/admin/article/add.html",
+		"/E/MyBlogs/views/admin/articlecate/list.html",
+		"/E/MyBlogs/views/admin/articlecate/add.html",
+		"/E/MyBlogs/views/admin/article/list.html",
+		"/E/MyBlogs/views/admin/focus/list.html",
+		"/E/MyBlogs/views/admin/link/list.html",
+		"/E/MyBlogs/views/admin/nav/list.html",
+		"/E/MyBlogs/views/admin/public/nav_left.html",
+		"/E/MyBlogs/routes/admin/setting.js",
+		"/E/MyBlogs/views/admin/setting/setting.html",
+		"/E/cms_demo/routes/admin/setting.js",
+		"/E/MyBlogs/model/db/setting.js",
+		"/E/MyBlogs/public/admin/css/base.css",
+		"/E/MyBlogs/public/admin/js/base.js",
+		"/E/MyBlogs/routes/admin.js",
+		"/E/MyBlogs/views/admin/link/edit.html",
+		"/E/MyBlogs/routes/admin/link.js",
+		"/E/MyBlogs/model/tools.js",
+		"/E/MyBlogs/views/admin/focus/edit.html",
+		"/E/cms_demo/model/setting.js",
+		"/E/MyBlogs/model/db/link.js",
+		"/E/MyBlogs/routes/admin/index.js",
+		"/E/MyBlogs/routes/admin/focus.js",
+		"/E/MyBlogs/model/db/focus.js",
+		"/E/MyBlogs/views/admin/nav/edit.html",
+		"/E/MyBlogs/routes/admin/nav.js",
+		"/E/MyBlogs/routes/admin/article.js",
+		"/E/MyBlogs/model/db/nav.js",
+		"/E/cms_demo/model/tools.js",
+		"/E/cms_demo/views/admin/article/list.html",
+		"/E/MyBlogs/public/admin/js/jqPaginator.js",
+		"/E/MyBlogs/views/admin/article/edit.html",
+		"/E/MyBlogs/model/db/article.js",
+		"/E/MyBlogs/public/admin/js/app.js",
+		"/E/EditPlus/html+css+javascript/Symbol.html",
+		"/E/MyBlogs/public/ueditor/ueditor.config.js",
+		"/E/cms_demo/public/ueditor/ueditor.config.js",
+		"/E/MyBlogs/app.js",
+		"/E/cms_demo/routes/admin.js",
+		"/E/cms_demo/views/admin/article/add.html",
+		"/E/MyBlogs/views/admin/public/nav_top.html",
+		"/E/MyBlogs/model/db/articlecate.js",
+		"/E/MyBlogs/model/db/user.js",
+		"/E/MyBlogs/views/admin/articlecate/edit.html",
+		"/E/MyBlogs/routes/admin/articlecate.js",
+		"/E/MyBlogs/public/admin/css/bootstrap.css",
+		"/E/personal_homepage/nodeJs/安装第三方模块/node_modules/formaterrors/test/testHelpers/moduleLoader.js",
+		"/E/MyBlogs/views/admin/manage/list.html",
+		"/E/MyBlogs/views/admin/manage/add.html",
+		"/E/MyBlogs/views/admin/index.html",
+		"/E/MyBlogs/views/admin/manage/edit.html",
+		"/E/MyBlogs/routes/admin/manage.js",
+		"/E/MyBlogs/public/admin/js/userform.js",
+		"/E/cms_demo/views/admin/public/nav_left.html",
+		"/E/MyBlogs/routes/admin/login.js",
+		"/E/MyBlogs/public/admin/css/manage.css",
+		"/E/cms_demo/public/admin/basic.js",
+		"/E/cms_demo/views/admin/manage/list.html",
+		"/E/cms_demo/routes/admin/index.js",
+		"/E/MyBlogs/views/admin/error.html",
+		"/E/MyBlogs/views/admin/public/header.html",
+		"/E/cms_demo/node_modules/bson/browser_build/bson.js",
+		"/E/personal_homepage/Mehomepage/js/index.js",
+		"/E/personal_homepage/Mehomepage/css/index.css",
+		"/E/MyBlogs/views/admin/login.html",
+		"/E/MyBlogs/public/admin/css/error.css",
+		"/E/MyBlogs/public/admin/js/error.js",
+		"/E/MyBlogs/public/admin/images/error.png",
+		"/E/MyBlogs/public/admin/js/login.js",
+		"/E/MyBlogs/public/admin/css/login.css",
+		"/E/cms_demo/views/admin/manage/add.html",
+		"/E/MyBlogs/model/db/db.js",
+		"/E/MyBlogs/model/db.js",
+		"/E/cms_demo/views/admin/login.html",
+		"/E/cms_demo/app.js",
+		"/E/cms_demo/routes/admin/articlecate.js",
+		"/E/cms_demo/routes/admin/article.js",
+		"/E/cms_demo/routes/api.js",
+		"/E/vue/Mour/index.js",
+		"/E/vue/Mour/index.css",
+		"/E/vue/Mour/index.html",
+		"/E/MyBlogs/views/default/index.html",
+		"/E/webpack/public/index.html",
+		"/E/webpack/app/Greeter.js",
+		"/E/webpack/app/main.js",
+		"/E/webpack/package-lock.json",
+		"/E/MyBlogs/package.json",
+		"/E/cms_demo/views/default/content.html",
+		"/E/cms_demo/routes/index.js",
+		"/E/cms_demo/views/default/service.html",
+		"/E/cms_demo/views/default/case.html",
+		"/E/cms_demo/public/default/css/heder_nav-menu.css",
+		"/C/Users/Administrator/AppData/Local/Temp/HZ$D.591.3293/db.js",
+		"/E/cms_demo/public/default/css/common.css",
+		"/E/cms_demo/public/default/css/successful_case.css",
+		"/C/Users/Administrator/AppData/Local/Temp/HZ$D.591.3292/db.js",
+		"/E/cms_demo/routes/admin/focus.js",
+		"/E/cms_demo/routes/admin/link.js",
+		"/E/cms_demo/routes/admin/nav.js",
+		"/C/Users/Administrator/AppData/Local/Temp/HZ$D.591.3291/db.js",
+		"/E/cms_demo/model/article.js",
+		"/E/cms_demo/views/admin/article/edit.html",
+		"/E/cms_demo/views/admin/articlecate/list.html",
+		"/E/cms_demo/views/admin/link/list.html",
+		"/E/cms_demo/views/default/index.html",
+		"/E/cms_demo/views/default/public/header.html",
+		"/E/cms_demo/views/admin/focus/list.html",
+		"/E/cms_demo/model/focus.js",
+		"/E/cms_demo/public/default/js/swiper.min.js",
+		"/E/cms_demo/views/admin/nav/list.html",
+		"/E/cms_demo/model/link.js",
+		"/E/cms_demo/views/admin/setting/add.html",
+		"/E/cms_demo/model/nav.js",
+		"/E/cms_demo/views/admin/nav/edit.html",
+		"/E/cms_demo/views/admin/nav/add.html",
+		"/E/cms_demo/views/admin/link/edit.html",
+		"/E/cms_demo/views/admin/link/add.html",
+		"/E/cms_demo/views/admin/focus/add.html",
+		"/E/cms_demo/views/admin/focus/edit.html",
+		"/E/cms_demo/views/admin/11.html",
+		"/E/cms_demo/public/admin/css/basic.css"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "car.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 202.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
