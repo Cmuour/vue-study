@@ -296,7 +296,8 @@
 		el: "#app",
 		data:{
 			productArr:[],
-			isCheck:false
+			isCheck:false,
+			totalPrice:0
 		},
 		methods:{
 			async getData(){
@@ -322,7 +323,8 @@
 				this.productArr.forEach(item=>{
 					total += item.isSelected? item.productCount * item.productPrice : 0;
 				})
-				return total;
+				this.totalPrice = Number(total).toFixed(2)
+				return this.totalPrice;
 			}
 		},
 		created(){
@@ -335,3 +337,27 @@
 		}
 	})
 	</script>
+
+14.v-show
+
+	<div id="app">
+    	<!-- v-show="数据" 将数据转成布尔值判断，如果是true就是现实，否则就是隐藏 在元素身上加了 display属性 -->
+    	<p v-show="1" >mour</p>
+   	 	<p v-show="true" >muour</p>
+	</div>
+
+15.v-if
+
+	<div id="app">
+    <!-- v-if="数据" 与v-show不一样的地方在于 v-if是直接将元素remove了 -->
+    	<p v-if="1" >mour</p>
+    	<p v-if="false" >muour</p>
+	</div>
+
+16.v-show与v-if的比较
+
+	v-if 特点：每次都会重新删除或者创建，有较高的切换性能消耗
+	v-show 特点：每次不会重新进行dom的删除和创建，只是切换了 display:none 样式有较高的初始渲染消耗
+	如果元素涉及到频繁的切换，最好不要使用v-if，推荐使用v-show
+	如果元素可能永远也不会被实现出来被用户看到，则推荐使用v-if
+
