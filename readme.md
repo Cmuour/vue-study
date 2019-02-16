@@ -361,3 +361,245 @@
 	如果元素涉及到频繁的切换，最好不要使用v-if，推荐使用v-show
 	如果元素可能永远也不会被实现出来被用户看到，则推荐使用v-if
 
+17.过渡动画
+
+	<style>
+      .box{
+        width: 200px;
+        height: 200px;
+        background: lightblue;
+      }
+      .fade-enter,.fade-leave-to{
+        opacity: 0;
+        transform: translateX(180px)
+      }
+      .fade-enter-active,.fade-leave-active{
+        transition: all .5s;
+      }
+    </style>
+
+	<div id="app">
+ 	 <button @click="flg=!flg">toggle</button>  
+ 	 <transition name="fade">
+    	<div class="box" v-show="flg"></div> 
+ 	 </transition>
+	</div>
+
+	<script>
+	let vm = new Vue({
+ 	 el:"#app",
+ 	 data:{
+  	  flg:true
+ 	 }
+	})
+	</script>
+
+18.列表动画
+
+	<style>
+    .v-enter,.v-leave-to{
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    .v-enter-active,.v-leave-active{
+      transition: all .5s ease;
+    }
+    .v-move{
+     	transition: all .5s ease;
+    }
+    .v-leave-active{
+		position: absolute;
+	}
+  	</style>
+
+	<div id="app">
+  	<input type="text" v-model="id">
+ 	<input type="text" v-model="name">
+  	<input type="button" value="addUser" @click="add">
+ 	<transition-group appear tag="ul">
+    	<li v-for="(item,i) in userList" :key="item.id" @click="remove(i)">
+      	{{item.id}} ------------- {{item.name}}
+    	</li>    
+  	</transition-group>
+	</div>
+
+	<script>
+	 let vm = new Vue({
+   	 el:"#app",
+   	 data:{
+    	  id:"",
+    	  name:"",
+   	   userList:[
+      	  {id:1,name:"大地"},
+     	   {id:2,name:"天空"},
+     	   {id:3,name:"星空"}
+    	  ]
+  	 },
+  	 methods: {
+    	 add(){
+      	  this.userList.push({id:this.id,name:this.name})
+      	  this.id = this.name = ""
+     	 },
+     	 remove(i){
+    	    this.userList.splice(i,1)
+    	 }
+   	 }
+  	})
+	</script>
+
+19.钩子函数动画
+	
+	<style type="text/css">
+		.mour{
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: red;
+		}
+	</style>
+
+	<div id="app">
+    	<input type="button" value="toggle" @click="flag=!flag">
+		<transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+			<div class="mour" v-if="flag"></div>
+		</transition>
+	</div>
+
+	<script>
+	let vm = new Vue({
+  		el:"#app",
+  		data:{
+   		 flag:false
+ 		 },
+  		methods: {
+   		 beforeEnter(el){
+    		  el.style.transform = "translate(0,0)"
+    		},
+    		enter(el,done){
+				//这个必须要加，可能是个bug，不然没有动画效果，可以是其他的el.offsetHeight... 等等
+				el.offsetWidth;
+     			el.style.transform = "translate(150px,450px)";
+				el.style.transition = "all 1s ease";
+				done();
+    		},
+   			afterEnter(el){
+     		 this.flag = !this.flag;
+    		}
+  		}
+	})
+	</script> 
+
+20.结合animate来实现运动
+
+	<div id="app">
+		<button @click="flag = !flag">toggle</button>
+		<transition enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
+  		<div v-show="flag">Mour</div>
+		</transition>
+	</div>
+
+	<script>
+		let vm = new Vue({
+  			el: "#app",
+  			data:{
+   				flag:true
+ 			}
+		})
+	</script> 
+
+21.watch
+	
+	<div id="app">
+		<input type="text" v-model="initNum">
+		{{initNum}}
+		&nbsp&nbsp
+		<input type="text" v-model="name">
+		<button @click="edit">修改</button>
+		{{obj.name}}
+	</div>
+
+	<script>
+	let vm = new Vue({
+ 	 el:"#app",
+ 	 data:{
+   	 initNum:1,
+   	 obj:{name:"muor"},
+   	 name:""
+  	},
+ 	methods: {
+   	 edit(){
+   	   this.obj.name = this.name
+   	 }
+ 	},
+ 	watch:{
+   	 initNum:{
+     	 // 如果不加 immediate 初始时不会先执行一次
+     	 handler(newVal,oldVal){
+     	   console.log(newVal,oldVal)
+     	 },
+     	 // 第一次执行因为没有改变值，所以只有一个值,第二个是undefined
+     	 immediate:true
+   	 },
+   	 obj:{
+     	 // 默认监控对象的时候，里面的属性发生改变时监控不到的，因为监控的是对象	的地址值
+     	 // 如果想监控到属性的改变就加一个deep：true 深度监控
+     	 // 但是要注意 handler传的新值和旧值 内存里面都是改变后的值
+     	 handler(newVal,oldVal){
+     	   console.log(newVal,oldVal)
+     	 },
+    	  deep:true
+   	 }
+ 	}
+	})
+	</script>
+
+22.:calss的使用
+
+	<style>
+    	.box{
+     	 color: red;
+   	 	}
+ 	</style>
+
+	<div id="app">
+  		<p :class="box">mour</p>
+  		<p :class="['box']">mour</p>
+  		<p :class="[box1]">mour</p>
+ 	 	<p :class="{box:true}">mour</p>
+  		input type="text" v-model="mour">
+  		<ul>
+   		 <li :class="{box:mour==item}" v-for="item in arr">{{item}}</li>
+  		</ul>
+	</div>
+
+	<script>
+		let vm = new Vue({
+ 		  el:"#app",
+ 		  data:{
+  		   box:"box",
+   		   box1:'box',
+   		   arr:['js','css','html','node','vue'],
+   		   mour:""
+ 		  }
+		})
+	</script>
+
+23.:style
+
+	<div id="app">
+		<p :style="{width:'50px',height:'50px',backgroundColor:'lightblue'}"></p>
+  		<p :style="style1">style1</p>
+ 	 	<p :style="style2">style2</p>
+  		<p :style="[style1,style2]">style1和style2</p>
+  		<!-- 要么是对象，要么是数组，数组里的每一项都是对象 -->
+	</div>
+
+	<script>
+		let vm = new Vue({
+  			el:"#app",
+  			data:{
+   		 		style1:{color:'red'},
+   			 	style2:{backgroundColor:'lightblue'}
+  			}
+		})
+	</script>

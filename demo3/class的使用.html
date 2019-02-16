@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <p :class="box">mour</p>
+  <p :class="['box']">mour</p>
+  <p :class="[box1]">mour</p>
+  <p :class="{box:true}">mour</p>
+  <input type="text" v-model="mour">
+  <ul>
+    <li :class="{box:mour==item}" v-for="item in arr">{{item}}</li>
+  </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+let vm = new Vue({
+  el:"#app",
+  data:{
+    box:"box",
+    box1:'box',
+    arr:['js','css','html','node','vue'],
+    mour:""
+  }
+})
+</script>
+</body>
+</html>

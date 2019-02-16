@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .v-enter,.v-leave-to{
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    .v-enter-active,.v-leave-active{
+      transition: all .5s ease;
+    }
+    .v-move{
+      transition: all .5s ease;
+    }
+    .v-leave-active{
+			position: absolute;
+		}
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <input type="text" v-model="id">
+  <input type="text" v-model="name">
+  <input type="button" value="addUser" @click="add">
+  <transition-group appear tag="ul">
+    <li v-for="(item,i) in userList" :key="item.id" @click="remove(i)">
+      {{item.id}} ------------- {{item.name}}
+    </li>    
+  </transition-group>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+  let vm = new Vue({
+    el:"#app",
+    data:{
+      id:"",
+      name:"",
+      userList:[
+        {id:1,name:"大地"},
+        {id:2,name:"天空"},
+        {id:3,name:"星空"}
+      ]
+    },
+    methods: {
+      add(){
+        this.userList.push({id:this.id,name:this.name})
+        this.id = this.name = ""
+      },
+      remove(i){
+        this.userList.splice(i,1)
+      }
+    }
+  })
+
+</script>
+</body>
+</html>

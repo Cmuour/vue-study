@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<div id="app">
+<input type="text" v-model="initNum">
+{{initNum}}
+&nbsp&nbsp
+<input type="text" v-model="name">
+<button @click="edit">修改</button>
+{{obj.name}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+let vm = new Vue({
+  el:"#app",
+  data:{
+    initNum:1,
+    obj:{name:"muor"},
+    name:""
+  },
+  methods: {
+    edit(){
+      this.obj.name = this.name
+    }
+  },
+  watch:{
+    initNum:{
+      // 如果不加 immediate 初始时不会先执行一次
+      handler(newVal,oldVal){
+        console.log(newVal,oldVal)
+      },
+      // 第一次执行因为没有改变值，所以只有一个值,第二个是undefined
+      immediate:true
+    },
+    obj:{
+      // 默认监控对象的时候，里面的属性发生改变时监控不到的，因为监控的是对象的地址值
+      // 如果想监控到属性的改变就加一个deep：true 深度监控
+      // 但是要注意 handler传的新值和旧值 内存里面都是改变后的值
+      handler(newVal,oldVal){
+        console.log(newVal,oldVal)
+      },
+      deep:true
+    }
+  }
+})
+</script>  
+</body>
+</html>
