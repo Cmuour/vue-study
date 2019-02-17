@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box{
+      width: 200px;
+      height: 200px;
+      background-image: url(../images/1.jpg);
+      background-color: lightblue;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <p v-red="'lightblue'">mour</p>
+  <div v-drag class="box"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+let vm = new Vue({
+  el:"#app",
+  data:{},
+  directives:{
+    // 自定义指令的时候不需要加v-，在使用的时候要加上v-
+    red(el,bindings){
+      // 只要使用 v-red 这个指令就会触发这个函数
+      // 第一个参数是当前元素
+      el.style.color = 'red';
+      // 执行这个函数的时候 会默认给这个函数传5个值
+      console.log(arguments)
+      // 第二个参数bindings.value 就是使用指令的时候的赋值
+      console.log(bindings.value) // 会打印出 lightblue
+    },
+    drag(el){
+      el.onmousedown = function(e){
+        this.x = e.clientX - this.offsetLeft;
+        this.y = e.clientY - this.offsetTop;
+        document.onmousemove = (e)=>{
+          this.style.left = e.clientX - this.x + 'px';
+          this.style.top = e.clientY - this.y + 'px';
+        }
+        document.onmouseup = ()=>{
+          this.onmouseup = null;
+          document.onmousemove = null;
+        }
+        e.preventDefault();
+      }
+    }
+  }
+  
+})
+</script>  
+</body>
+</html>

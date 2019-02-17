@@ -603,3 +603,160 @@
   			}
 		})
 	</script>
+
+24.利用自定义指令实现拖拽效果
+
+	<style>
+    .box{
+      width: 200px;
+      height: 200px;
+      background-color: lightblue;
+      position: absolute;
+    }
+  	</style>
+
+	<div id="app">
+  		<p v-red="'lightblue'">mour</p>
+  		<div v-drag class="box"></div>
+	</div>
+
+	<script>
+	let vm = new Vue({
+ 	  el:"#app",
+  	  data:{},
+  	  directives:{
+      // 自定义指令的时候不需要加v-，在使用的时候要加上v-
+      red(el,bindings){
+        // 只要使用 v-red 这个指令就会触发这个函数
+        // 第一个参数是当前元素
+        el.style.color = 'red';
+        // 执行这个函数的时候 会默认给这个函数传5个值
+        console.log(arguments)
+        // 第二个参数bindings.value 就是使用指令的时候的赋值
+        console.log(bindings.value) // 会打印出 lightblue
+      },
+      drag(el){
+        el.onmousedown = function(e){
+          this.x = e.clientX - this.offsetLeft;
+          this.y = e.clientY - this.offsetTop;
+          document.onmousemove = (e)=>{
+            this.style.left = e.clientX - this.x + 'px';
+            this.style.top = e.clientY - this.y + 'px';
+          }
+          document.onmouseup = ()=>{
+          this.onmouseup = null;
+          document.onmousemove = null;
+          }
+        }
+     }
+ 	}
+	})
+	</script>
+
+25.实现简单的todoList
+
+    // 需引入bootstrap
+    <style>
+      .del{
+        color: #ccc;
+        text-decoration: line-through;
+      }
+    </style>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3 class="text-center">还有{{num}}件未完成</h3>
+                  <input type="text" class="form-control" v-model="dream" @keyup.13="addData">
+                </div>
+                <div class="panel-body">
+                  <ul class="list-group">
+                    <li class="list-group-item" v-for="(item,i) in filterData" @dblclick="item.flag=!item.flag">
+                      <input type="text" v-show="!item.flag" @blur="item.flag=!item.flag" v-focus="item.title" v-model="item.title" @keyup.13="item.flag=!item.flag">
+                      <span v-show="item.flag">
+                          <input type="checkbox" v-model="item.isSelected">&nbsp;&nbsp;
+                          <span style="vertical-align:top" :class="{del:item.isSelected}">
+                            {{item.title}}
+                          </span>
+                      </span>
+                      <button class="btn btn-xs btn-danger pull-right" @click="removeData(item)">&bigotimes;</button>
+                    </li>
+                  </ul>
+                </div>
+                <div class="panel-footer">
+                    <ul class="nav nav-pills">
+                      <li role="presentation" :class="{active:hash=='all'}"><a href="#/all">全部显示</a></li>
+                      <li role="presentation" :class="{active:hash=='finish'}"><a href="#/finish">已完成</a></li>
+                      <li role="presentation" :class="{active:hash=='unFinish'}"><a href="#/unFinish">未完成</a></li>
+                    </ul>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    let vm = new Vue({
+      el:"#app",
+      data:{
+        dream:"",
+        hash:"all",
+        arr:[
+          {title:"换手机",isSelected:true,flag:true},
+          {title:"换笔记本",isSelected:false,flag:true}
+        ],
+        filterData:[]
+      },
+      methods: {
+        addData(){
+          if(this.dream === "") {
+       		 alert("不能为空")
+        	 return
+      	  }
+          this.filterData.unshift({title:this.dream,isSelected:false,flag:true})
+          this.dream = ""
+        },
+        removeData(val){
+          this.filterData = this.filterData.filter(item=>item!=val);
+        },
+        cut(){
+          if(this.hash == 'finish'){
+            this.filterData = this.arr.filter(item=> item.isSelected);
+          }else if(this.hash == 'unFinish'){
+            this.filterData = this.arr.filter(item=> !item.isSelected);
+          }else{
+            this.filterData = this.arr;
+          }
+        },
+        init(){
+          location.hash = '#/'+localStorage.getItem('cut');
+          this.hash=location.hash.substring(2);
+          this.cut();
+        }
+      },
+      computed: {
+        num(){
+          return this.arr.filter(item=>!item.isSelected).length
+        }
+      },
+      directives:{
+        focus(el,bindings){
+          if(bindings.value){
+            el.focus();
+          }
+        }
+      },
+      created() {
+        this.init();
+        window.addEventListener("hashchange",()=>{
+          this.hash = location.hash.substring(2);
+          localStorage.setItem('cut',this.hash);
+          this.cut();
+        })
+      },
+    })
+    </script>
