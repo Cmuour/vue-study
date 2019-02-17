@@ -825,7 +825,7 @@
 
 26.生命周期
 
-![](https://i.imgur.com/jJFbu3r.png)
+![](https://i.imgur.com/lvAvCCn.png)
 
 	beforeCreate(){
 		// 第一个生命周期函数，表示实例被完全创建出来之前，会执行它
