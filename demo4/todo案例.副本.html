@@ -26,7 +26,7 @@
             </div>
             <div class="panel-body">
               <ul class="list-group">
-                <li class="list-group-item" v-for="(item,i) in filterList" @dblclick="item.flag=!item.flag">
+                <li class="list-group-item" v-for="(item,i) in filterData" @dblclick="item.flag=!item.flag">
                   <input type="text" v-show="!item.flag" @blur="item.flag=!item.flag" v-focus="item.title" v-model="item.title" @keyup.13="item.flag=!item.flag">
                   <span v-show="item.flag">
                       <input type="checkbox" v-model="item.isSelected">&nbsp;&nbsp;
@@ -57,11 +57,12 @@ let vm = new Vue({
   el:"#app",
   data:{
     dream:"",
-    hash:"",
+    hash:"all",
     arr:[
       {title:"换手机",isSelected:true,flag:true},
       {title:"换笔记本",isSelected:false,flag:true}
-    ]
+    ],
+    filterData:[]
   },
   methods: {
     addData(){
@@ -69,27 +70,30 @@ let vm = new Vue({
         alert("不能为空")
         return
       }
-      this.arr.unshift({title:this.dream,isSelected:false,flag:true})
-      localStorage.setItem('todoList',this.arr)
+      this.filterData.unshift({title:this.dream,isSelected:false,flag:true})
       this.dream = ""
     },
     removeData(val){
-      this.arr = this.arr.filter(item=>item!=val);
+      this.filterData = this.filterData.filter(item=>item!=val);
+    },
+    cut(){
+      if(this.hash == 'finish'){
+        this.filterData = this.arr.filter(item=> item.isSelected);
+      }else if(this.hash == 'unFinish'){
+        this.filterData = this.arr.filter(item=> !item.isSelected);
+      }else{
+        this.filterData = this.arr;
+      }
     },
     init(){
       location.hash = '#/'+localStorage.getItem('cut');
       this.hash=location.hash.substring(2);
+      this.cut();
     }
   },
   computed: {
     num(){
       return this.arr.filter(item=>!item.isSelected).length
-    },
-    filterList(){
-      localStorage.setItem('todoList',JSON.stringify(this.arr));
-      if(this.hash == 'all') return this.arr
-      if(this.hash == 'finish') return this.arr.filter(item=>item.isSelected)
-      if(this.hash == 'unFinish') return this.arr.filter(item=>!item.isSelected)
     }
   },
   directives:{
@@ -100,14 +104,11 @@ let vm = new Vue({
     }
   },
   created() {
-    localStorage.getItem('cut')?null:localStorage.setItem('cut','all');
-    if(localStorage.getItem('todoList')){
-      this.arr = JSON.parse(localStorage.getItem('todoList'))
-    }
     this.init();
     window.addEventListener("hashchange",()=>{
       this.hash = location.hash.substring(2);
       localStorage.setItem('cut',this.hash);
+      this.cut();
     })
   },
 })

@@ -760,3 +760,112 @@
       },
     })
     </script>
+
+	// 使用计算属性来做  v-for的循环对象应换成 filterList
+	<script>
+	let vm = new Vue({
+		el:"#app",
+		data:{
+			dream:"",
+			hash:"",
+			arr:[
+				{title:"换手机",isSelected:true,flag:true},
+				{title:"换笔记本",isSelected:false,flag:true}
+			]
+		},
+		methods: {
+			addData(){
+				if(this.dream === "") {
+					alert("不能为空")
+					return
+				}
+				this.arr.unshift({title:this.dream,isSelected:false,flag:true})
+				localStorage.setItem('todoList',this.arr)
+				this.dream = ""
+			},
+			removeData(val){
+				this.arr = this.arr.filter(item=>item!=val);
+			},
+			init(){
+				location.hash = '#/'+localStorage.getItem('cut');
+				this.hash=location.hash.substring(2);
+			}
+		},
+		computed: {
+			num(){
+				return this.arr.filter(item=>!item.isSelected).length
+			},
+			filterList(){
+				localStorage.setItem('todoList',JSON.stringify(this.arr));
+				if(this.hash == 'all') return this.arr
+				if(this.hash == 'finish') return this.arr.filter(item=>item.isSelected)
+				if(this.hash == 'unFinish') return this.arr.filter(item=>!item.isSelected)
+			}
+		},
+		directives:{
+			focus(el,bindings){
+				if(bindings.value){
+					el.focus();
+				}
+			}
+		},
+		created() {
+			localStorage.getItem('cut')?null:localStorage.setItem('cut','all');
+			if(localStorage.getItem('todoList')){
+				this.arr = JSON.parse(localStorage.getItem('todoList'))
+			}
+			this.init();
+			window.addEventListener("hashchange",()=>{
+				this.hash = location.hash.substring(2);
+				localStorage.setItem('cut',this.hash);
+			})
+		},
+	})
+	</script>
+
+26.生命周期
+
+![](https://i.imgur.com/jJFbu3r.png)
+
+	beforeCreate(){
+		// 第一个生命周期函数，表示实例被完全创建出来之前，会执行它
+		console.log(this.msg) // 会输出 undefined
+		// 在 beforeCreate 生命周期函数执行的时候，data 和 methods 中的数据都还没初始化
+	}
+
+	created(){
+		console.log(this.msg) 
+		// 会打印data里的值，created中，data和methods都已经被初始化好了
+	}
+
+	beforeMount(){
+		// 表示模板已经在内存中编译完成了，但是尚未把模板渲染到页面中
+		// 在beforeMount执行的时候，页面中的元素，还没有被真正替换过来，只是之前写的一些模板字符串
+		console.log(document.querySelector('#h1').innerText)
+		// 页面中有 <h1 class="h1" v-text="msg"></h1> 执行获取 h1 内容的时候，是获取不到 data 里面 msg 插入进去的文本内容的
+	}
+
+	mounted(){
+		// 表示内存中的模板，已经真实的挂载到了页面中，用户可以看到渲染的页面了
+		console.log(document.querySelector('#h1').innerText)
+		// 控制台中会打印出 msg 插入的文本
+	}
+
+	// 下面两个是运行后的函数
+	beforeUpdate(){
+		console.log(document.querySelector('#h1').innerText)
+		console.log(this.msg)
+		// 第一个打印 旧值， 第二个打印 新值
+		// 走到beforeUpdate的时候，数据肯定是被更新了，但是页面还没跟data里的值保持同步
+	}
+
+	updated(){
+		console.log(document.querySelector('#h1').innerText)
+		console.log(this.msg)
+		// 两个都打印出最新的值
+		// updated 事件执行的时候，页面和 data 数据已经保持同步，都是最新的
+	}
+
+	// 当执行 beforeDstroy 钩子函数的时候，Vue实例就已经从运行阶段，进入到了销毁阶段
+	// 执行 beforeDstroy 的时候，实例身上所有的 data 和 methods 以及过滤器、指令... 都处于可用状态，此时，还没有真正执行销毁的过程。
+	// 当执行 destroyed 函数的时候，组件已经被完全销毁，此时，组件中所有的数据、方法、指令、过滤器... 都已经不可用了,不会销毁之前渲染好的
