@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<title>Document</title>
+</head>
+<body>
+
+<div id="app">
+  <v-box></v-box>
+</div>
+
+<script>
+// 定义组件时，建议使用驼峰命名，使用组件的时候用横杠的形式
+Vue.component('vBox',{
+  template:"<div><h3>我是一个组件 {{msg}}</h3></div>",
+  // 在一个组件里，data 必须是一个函数，然后返回一个对象
+  data(){
+    return {
+      msg:"muour"
+    }
+  }
+})
+
+let vm = new Vue({
+  el:"#app"
+})
+</script>  
+</body>
+</html>

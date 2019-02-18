@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<div id="app">
+  <p ref="p">{{msg}}</p>
+  <p ref="p">{{msg}}</p>
+  <h4 ref="h4" v-for="item in arr">{{item}}</h4>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+let vm = new Vue({
+  el:"#app",
+  data:{
+    msg:"muour",
+    arr:["css","javascript","vue","nodejs"]
+  },
+  mounted(){
+    // this.$refs 是一个对象，这里面存着加了ref属性的元素
+    // 如果出现重名的，后面的将会覆盖掉前面的
+    console.log(this.$refs)
+    // 可以通过指定的值来获取元素 ref="值"
+    console.log(this.$refs.p)
+    // 如果是遇到循环的地方，会自动改成一个数组，将所有循环出来的元素存放进去
+    console.log(this.$refs.h4) // 在控制台打印出一个存放h4的数组
+
+    this.arr.push("webpack")
+    // 由于vue渲染是异步过程 在 push 进去一个 webpack 后执行下面的循环，不会打印出webpack
+    this.$refs.h4.forEach(item=> console.log(item.innerText))
+    console.log('--------')
+    // 可以使用 this.$nextTick 这个方法来解决这个问题
+    this.$nextTick(()=>{
+      this.$refs.h4.forEach(item=>console.log(item.innerText))
+    })
+  }
+})
+</script>  
+</body>
+</html>

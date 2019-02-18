@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{money}}
+    <hr>
+    <child :m="money" @change-money="change"></child>
+  </div>
+
+  <template id="temp1">
+    <div>
+      {{m}}
+      <input type="text" v-model="money">
+      <button @click="moreMoney">more</button>
+    </div>
+  </template>
+</body>
+</html>
+<script>
+  let child = {
+    template:"#temp1",
+    data(){
+      return{
+        money:null
+      }
+    },
+    props:["m"],
+    methods: {
+      moreMoney(){
+        // 发布之前订阅的事件
+        // 第二个参数开始就是给之前订阅的事件传参数用的
+        this.$emit('change-money',this.money)
+      }
+    },
+  }
+  let vm = new Vue({
+    el:"#app",
+    data:{
+      money:100
+    },
+    components:{
+      child
+    },
+    methods:{
+      change(val,val2){
+        this.money += parseFloat(val);
+      }
+    }
+  })
+</script>

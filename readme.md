@@ -847,6 +847,7 @@
 
 	mounted(){
 		// 表示内存中的模板，已经真实的挂载到了页面中，用户可以看到渲染的页面了
+		// 挂载完成了，如果想要获取渲染好的 DOM 元素，在这里获取
 		console.log(document.querySelector('#h1').innerText)
 		// 控制台中会打印出 msg 插入的文本
 	}
@@ -869,3 +870,137 @@
 	// 当执行 beforeDstroy 钩子函数的时候，Vue实例就已经从运行阶段，进入到了销毁阶段
 	// 执行 beforeDstroy 的时候，实例身上所有的 data 和 methods 以及过滤器、指令... 都处于可用状态，此时，还没有真正执行销毁的过程。
 	// 当执行 destroyed 函数的时候，组件已经被完全销毁，此时，组件中所有的数据、方法、指令、过滤器... 都已经不可用了,不会销毁之前渲染好的
+
+27.ref 的使用
+
+	<div id="app">
+		<p ref="p">{{msg}}</p>
+		<p ref="p">{{msg}}</p>
+		<h4 ref="h4" v-for="item in arr">{{item}}</h4>
+	</div>
+
+	<script>
+	let vm = new Vue({
+		el:"#app",
+		data:{
+			msg:"muour",
+			arr:["css","javascript","vue","nodejs"]
+		},
+		mounted(){
+			// this.$refs 是一个对象，这里面存着加了ref属性的元素
+			// 如果出现重名的，后面的将会覆盖掉前面的
+			console.log(this.$refs)
+			// 可以通过指定的值来获取元素 ref="值"
+			console.log(this.$refs.p)
+			// 如果是遇到循环的地方，会自动改成一个数组，将所有循环出来的元素存放进去
+			console.log(this.$refs.h4) // 在控制台打印出一个存放h4的数组
+
+			this.arr.push("webpack")
+			// 由于vue渲染是异步过程 在 push 进去一个 webpack 后执行下面的循环，不会打印出webpack
+			this.$refs.h4.forEach(item=> console.log(item.innerText))
+			console.log('--------')
+			// 可以使用 this.$nextTick 这个方法来解决这个问题
+			this.$nextTick(()=>{
+				this.$refs.h4.forEach(item=>console.log(item.innerText))
+			})
+		}
+	})
+	</script>
+
+28.定义全局组件
+
+	<div id="app">
+		<v-box></v-box>
+	</div>
+
+	<script>
+	// 定义组件时，建议使用驼峰命名，使用组件的时候用横杠的形式
+	// 如果是全部小写的组件名，使用的时候用全小写的名字就可以，不用加横杠
+	Vue.component('vBox',{
+		template:"<div><h3>我是一个组件 {{msg}}</h3></div>",
+		// 在一个组件里，data 必须是一个函数，然后返回一个对象
+		data(){
+			return {
+				msg:"muour"
+			}
+		}
+	})
+
+	let vm = new Vue({
+		el:"#app"
+	})
+	</script>
+
+29.component
+
+	<div id="app">
+    <!-- 使用组件 -->
+    <component1></component1>
+	</div>
+	
+	<script>
+	// 定义组件
+	let component1 = {
+		template:"<div>muour</div>"
+	}
+	let vm = new Vue({
+		el:"#app",
+		data:{},
+		components:{
+			// 注册组件
+			component1
+		}
+	})
+	</script>
+
+30.父子组件传值
+
+	<body>
+		<div id="app">
+			{{money}}
+			<hr>
+			<!-- :m给子组件传值 @change-money订阅 -->
+			<child :m="money" @change-money="change"></child>
+		</div>
+
+		<template id="temp1">
+			<div>
+				{{m}}
+				<input type="text" v-model="money">
+				<button @click="moreMoney">more</button>
+			</div>
+		</template>
+	</body>
+
+	<script>
+		let child = {
+			template:"#temp1",
+			data(){
+				return{
+					money:null
+				}
+			},
+			props:["m"],
+			methods: {
+				moreMoney(){
+					// 发布之前订阅的事件 对父组件说要执行这个函数 函数是change-money的值
+					// 第二个参数开始就是给之前订阅的事件传参数用的
+					this.$emit('change-money',this.money)
+				}
+			},
+		}
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				money:100
+			},
+			components:{
+				child
+			},
+			methods:{
+				change(val,val2){
+					this.money += parseFloat(val);
+				}
+			}
+		})
+	</script>
