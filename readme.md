@@ -1004,3 +1004,46 @@
 			}
 		})
 	</script>
+
+31.sync
+
+	<body>
+		<div id="app">
+			<h3>{{money}}</h3>
+			<hr>
+			<!-- 语法糖 .sync -->
+			<!-- 子组件更新自己的属性，让绑定的父组件的数据同步修改 -->
+			<child :m.sync='money'></child>
+		</div>
+		<template id="temp1">
+			<div>
+				<h3>{{m}}</h3>
+				<button @click="changeMoney">change</button>
+			</div>
+		</template>
+	</body>
+
+	<script>
+	let child = {
+		template:'#temp1',
+		data(){
+			return {}
+		},
+		methods: {
+			changeMoney(){
+				this.$emit('update:m',500)
+			}
+		},
+		props:['m']
+	}
+
+	let vm = new Vue({
+		el:"#app",
+		data:{
+			money:100
+		},
+		components:{
+			child
+		}
+	})
+	</script>

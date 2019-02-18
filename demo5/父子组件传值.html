@@ -11,6 +11,7 @@
   <div id="app">
     {{money}}
     <hr>
+    <!-- :m给子组件传值 @change-money订阅 -->
     <child :m="money" @change-money="change"></child>
   </div>
 
@@ -34,7 +35,7 @@
     props:["m"],
     methods: {
       moreMoney(){
-        // 发布之前订阅的事件
+        // 发布之前订阅的事件 对父组件说要执行这个函数 函数是change-money的值
         // 第二个参数开始就是给之前订阅的事件传参数用的
         this.$emit('change-money',this.money)
       }

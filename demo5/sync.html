@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h3>{{money}}</h3>
+    <hr>
+    <!-- 语法糖 .sync -->
+    <!-- 子组件更新自己的属性，让绑定的父组件的数据同步修改 -->
+    <child :m.sync='money'></child>
+  </div>
+  <template id="temp1">
+    <div>
+      <h3>{{m}}</h3>
+      <button @click="changeMoney">change</button>
+    </div>
+  </template>
+</body>
+</html>
+<script>
+let child = {
+  template:'#temp1',
+  data(){
+    return {}
+  },
+  methods: {
+    changeMoney(){
+      this.$emit('update:m',500)
+    }
+  },
+  props:['m']
+}
+
+let vm = new Vue({
+  el:"#app",
+  data:{
+    money:100
+  },
+  components:{
+    child
+  }
+})
+</script>
