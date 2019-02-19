@@ -1047,3 +1047,115 @@
 		}
 	})
 	</script>
+
+32.Vue提供的component标签、keep-alive标签
+
+	<div id="app">
+		<input type="radio" v-model="sel" value="temp1"> temp1
+		<input type="radio" v-model="sel" value="temp2"> temp2
+		<!-- component 首字母大小写都可以 -->
+		<!-- 只能放一个组件 组件之间切换的时候就是销毁之前的组件 重建新的组件 -->
+		<!-- 用keep-alive 包裹，可以使组件不被销毁，Vue内存会保存起来 -->
+		<keep-alive>
+				<component :is="sel"></component>
+		</keep-alive>
+	</div>
+
+	<script>
+	let temp1 = {
+		template:"<div><h3>temp1</h3></div>",
+		beforeDestroy(){
+			// 如果执行这个函数的话，就代表组件即将被销毁
+			// 使用keep-alive包裹component这个标签就不会被销毁，Vue内存会保存起来
+			console.log('temp1销毁')
+		}
+	}
+	let temp2 = {
+		template:"<div><h3>temp2</h3></div>",
+		beforeDestroy(){
+			console.log('temp2销毁')
+		}
+	}
+
+	let vm = new Vue({
+		el:"#app",
+		data:{
+			sel:""
+		},
+		components:{
+			temp1,temp2
+		}
+	})
+	</script>
+
+33.slot
+
+	<div id="app">
+		<temp>
+			<h3 slot="css">css</h3>
+			<h3 slot="javascript">javascript</h3>
+			<h3 slot="vue">vue</h3>
+			<h3 slot="nodejs">nodejs</h3>
+		</temp>
+	</div>
+
+	<template id="temp1">
+		<div>
+			<slot name="javascript"></slot>
+			<slot name="nodejs"></slot>
+			<slot name="css"></slot>
+			<slot name="vue"></slot>
+		</div>
+	</template>
+
+	<script>
+		let temp = {
+			template:"#temp1"
+		}
+		let vm = new Vue({
+			el:'#app',
+			data:{},
+			components:{
+				temp
+			}
+		})
+	</script>
+
+34.父组件操作子组件
+
+	<div id="app">
+		<button @click="toggle">toggle</button>
+		<child ref="child"></child>
+	</div>
+	<template id="temp1">
+		<div>
+			<p v-show="flag">Muour</p>
+		</div>
+	</template>
+
+	<script>
+	let child = {
+		template:"#temp1",
+		data(){
+			return{
+				flag:true
+			}
+		},
+		methods: {
+			hide(){
+				this.flag=!this.flag
+			}
+		}
+	}
+	let vm = new Vue({
+		el:"#app",
+		components:{
+			child
+		},
+		methods:{
+			toggle(){
+				this.$refs.child.hide();
+			}
+		}
+	})
+	</script>

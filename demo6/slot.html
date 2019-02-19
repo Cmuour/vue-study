@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <temp>
+      <h3 slot="css">css</h3>
+      <h3 slot="javascript">javascript</h3>
+      <h3 slot="vue">vue</h3>
+      <h3 slot="nodejs">nodejs</h3>
+    </temp>
+</div>
+
+<template id="temp1">
+  <div>
+    <slot name="javascript"></slot>
+    <slot name="nodejs"></slot>
+    <slot name="css"></slot>
+    <slot name="vue"></slot>
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+  let temp = {
+    template:"#temp1"
+  }
+  let vm = new Vue({
+    el:'#app',
+    data:{},
+    components:{
+      temp
+    }
+  })
+</script>
