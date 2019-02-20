@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <router-view></router-view>
+</div>
+<template id="home">
+  <div>
+    <h3>Home</h3>
+    <button @click="goList">goList</button>
+  </div>
+</template>
+<template id="list">
+  <div>
+    <h3>List</h3>
+    <button @click="goHome">goHome</button>
+  </div>
+</template>
+</body>
+</html>
+<script>
+let Home = {
+  template:"#home",
+  methods: {
+    goList(){
+      // replace 不保存历史记录
+      // this.$router.replace('/list')
+      // 一般使用push比较多
+      this.$router.push('/list')
+    }
+  },
+}
+let List = {
+  template:"#list",
+  methods: {
+    goHome(){
+      this.$router.push('/home')
+    }
+  },
+}
+let router = new VueRouter({
+  routes:[
+    {path:'/',component:Home},
+    {path:'/home',component:Home},
+    {path:'/list',component:List}
+  ]
+})
+let vm = new Vue({
+  el:"#app",
+  data:{},
+  router
+})
+</script>

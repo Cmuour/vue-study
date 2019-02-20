@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <router-link to="/home">Home</router-link>
+  <router-link to="/list">List</router-link>
+  <router-view></router-view>
+</div>
+<template id="home">
+  <div>
+    Home
+  </div>
+</template>
+<template id="list">
+  <div>
+    <router-link to="/list/list1">list1</router-link>
+    <router-link to="/list/list2">list2</router-link>
+    <router-view></router-view>
+  </div>
+</template>
+</body>
+</html>
+<script>
+  let Home = {
+    template:"#home"
+  }
+  let List = {
+    template:"#list"
+  }
+  let List1 = {
+    template:"<h3>list1</h3>"
+  }
+  let List2 = {
+    template:"<h3>list2</h3>"
+  }
+
+  let router = new VueRouter({
+    routes:[
+      {path:'/',component:Home},
+      {path:'/home',component:Home},
+      {
+        path:'/list',
+        component:List,
+        children:[
+          // 子路由的路径不用写 /
+          {path:'list1',component:List1},
+          {path:'list2',component:List2},
+        ]
+      },
+    ]
+  })
+
+  let vm = new Vue({
+    el:"#app",
+    data:{},
+    router
+  })
+</script>

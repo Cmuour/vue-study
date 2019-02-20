@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../bootstrap.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app" class="container">
+  <div class="row">
+    <child @say-song="song">
+      <h3 slot="title">{{songName}}</h3>
+      <div slot="content">
+        <p>Welcome to the wild no heroes and villains</p>
+        <p>Welcome to the war we've only begun so</p>
+        <p>Pick up your weapon and face it</p>
+        <p>There's blood on the crown go and take it</p>
+        <p>You get one shot to make it out alive so</p>
+        <p>Higher and higher you chase it</p>
+      </div>
+      <div slot="author">
+        <p>专辑：RISE</p>
+        <p>歌手：The Glitch Mob</p>
+      </div>
+    </child>
+  </div>
+</div>
+
+<template id="child">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-primary">
+      <div class="panel panel-heading">
+        <slot name="title"></slot>
+      </div>
+      <div class="panel panel-body">
+        <slot name="content"></slot>
+      </div>
+      <div class="panel panel-footer">
+        <slot name="author"></slot>
+        <button class="btn btn-primary" @click="saySong">点击弹出歌名</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+
+let child = {
+  template:"#child",
+  methods:{
+    saySong(){
+      this.$emit('say-song')
+    }
+  }
+}
+
+let vm = new Vue({
+  el:"#app",
+  data:{
+    songName:"Rise"
+  },
+  methods:{
+    song(){
+      alert(this.songName)
+    }
+  },
+  components:{
+    child
+  }
+})
+
+</script>

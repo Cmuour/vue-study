@@ -1159,3 +1159,149 @@
 		}
 	})
 	</script>
+
+35.路由
+
+	<div id="app">
+    <!-- router-link 会渲染成a标签 -->
+    <!-- 可以指定 router-link 渲染成别的标签，使用 tag="标签名" -->
+    <router-link to="home">首页</router-link>
+    <router-link to="list">列表</router-link>
+    <!-- router-view 路由对应的组件显示的位置 -->
+    <router-view></router-view>
+  </div>
+
+	<script>
+	// 构造函数的方法创建 router
+	// 只要创建VurRouter 页面的地址就会多加一个#/
+	// 路由默认使用的是hash的方法
+	let Home = {
+		template:"<h3>Home!</h3>"
+	}
+	let List = {
+		template:"<h3>List!</h3>"
+	}
+	// 路由的映射表
+	let routes = [
+		{path:'/home',component:Home},
+		{path:'/list',component:List}
+	]
+	let router = new VueRouter({
+		routes
+	})
+	let vm = new Vue({
+		el:"#app",
+		data:{},
+		// 注入路由
+		router
+	})
+	</script>
+
+36.编程式导航
+
+	<div id="app">
+		<router-view></router-view>
+	</div>
+	<template id="home">
+		<div>
+			<h3>Home</h3>
+			<button @click="goList">goList</button>
+		</div>
+	</template>
+	<template id="list">
+		<div>
+			<h3>List</h3>
+			<button @click="goHome">goHome</button>
+		</div>
+	</template>
+
+	<script>
+	let Home = {
+		template:"#home",
+		methods: {
+			goList(){
+				// replace 不保存历史记录
+				// this.$router.replace('/list')
+				// 一般使用push比较多
+				this.$router.push('/list')
+			}
+		},
+	}
+	let List = {
+		template:"#list",
+		methods: {
+			goHome(){
+				this.$router.push('/home')
+			}
+		},
+	}
+	let router = new VueRouter({
+		routes:[
+			{path:'/',component:Home},
+			{path:'/home',component:Home},
+			{path:'/list',component:List}
+		]
+	})
+	let vm = new Vue({
+		el:"#app",
+		data:{},
+		router
+	})
+	</script>
+
+37.路由嵌套
+
+	<div id="app">
+		<router-link to="/home">Home</router-link>
+		<router-link to="/list">List</router-link>
+		<router-view></router-view>
+	</div>
+	<template id="home">
+		<div>
+			Home
+		</div>
+	</template>
+	<template id="list">
+		<div>
+			<router-link to="/list/list1">list1</router-link>
+			<router-link to="/list/list2">list2</router-link>
+			<router-view></router-view>
+		</div>
+	</template>
+
+	<script>
+		let Home = {
+			template:"#home"
+		}
+		let List = {
+			template:"#list"
+		}
+		let List1 = {
+			template:"<h3>list1</h3>"
+		}
+		let List2 = {
+			template:"<h3>list2</h3>"
+		}
+
+		let router = new VueRouter({
+			routes:[
+				{path:'/',component:Home},
+				{path:'/home',component:Home},
+				{
+					path:'/list',
+					component:List,
+					children:[
+						// 子路由的路径不用写 /
+						{path:'list1',component:List1},
+						{path:'list2',component:List2},
+					]
+				},
+			]
+		})
+
+		let vm = new Vue({
+			el:"#app",
+			data:{},
+			router
+		})
+	</script>

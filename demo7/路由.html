@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <style>
+    .active{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- router-link 会渲染成a标签 -->
+    <!-- 可以指定 router-link 渲染成别的标签，使用 tag="标签名" -->
+    <router-link to="home">首页</router-link>
+    <router-link to="list">列表</router-link>
+    <!-- router-view 路由对应的组件显示的位置 -->
+    <router-view></router-view>
+  </div>
+</body>
+</html>
+<script>
+// 构造函数的方法创建 router
+// 只要创建VurRouter 页面的地址就会多加一个#/
+// 路由默认使用的是hash的方法
+let Home = {
+  template:"<h3>Home!</h3>"
+}
+let List = {
+  template:"<h3>List!</h3>"
+}
+// 路由的映射表
+let routes = [
+  // 默认进来就是首页
+  {path:'/',component:Home},
+  {path:'/home',component:Home},
+  {path:'/list',component:List},
+  // 从上到下依次匹配，都没有匹配到就走最后一个 所以我们要把'/*' 放在最后面
+  // 输入不正确的地址 重定向到首页
+  {path:'/*',redirect:'/home'}
+]
+let router = new VueRouter({
+  routes
+})
+let vm = new Vue({
+  el:"#app",
+  data:{},
+  // 注入路由
+  router
+})
+</script>
